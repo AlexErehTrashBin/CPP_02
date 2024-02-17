@@ -77,15 +77,13 @@ auto parseMatrixFromFile(
 
 // C++ 11 - trailing return type
 auto printMatrix(
-    const vector<vector<int>>&matrix,
-    const int rows,
-    const int cols
-    ) -> void {
+    const vector<vector<int>> &matrix
+) -> void {
     cout << "Матрица: " << endl;
 
-    // C++ 11 - templated std::begin and std::end
-    for (auto i = std::begin(matrix); i != std::end(matrix); ++i) {
-        for (auto j = std::begin(*i); j != std::end(*i); ++j) {
+    for (const auto & i : matrix) {
+        // C++ 11 - templated std::begin and std::end
+        for (auto j = std::begin(i); j != std::end(i); ++j) {
             cout.width(5);
             cout << *j;
         }
@@ -127,7 +125,7 @@ int main() {
         cin >> filename;
         matrix = parseMatrixFromFile(filename, rows, cols);
     }
-    printMatrix(matrix.value(), rows, cols);
+    printMatrix(matrix.value());
     const int result = getAscendingRowsCount(matrix.value(), rows, cols);
     cout << "Количество возрастающих строк: " << result << endl;
     matrix.value().clear();
